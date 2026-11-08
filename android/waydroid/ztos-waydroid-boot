@@ -32,11 +32,10 @@ timeout --signal=TERM --kill-after=2 45 sudo -n /usr/local/libexec/ztos-waydroid
 ready=$?
 rm -f "$launching"
 if (( ready == 0 )); then
-	sudo -n /usr/bin/touch "$marker"   # /run is root's; ztOS's sudoers allows touch
 	if ! ztos-waydroid-power idle; then
 		logger -t ztos-waydroid-boot 'Android ready; idle freeze deferred to normal policy'
 	fi
-	logger -t ztos-waydroid-boot 'Android ready; boot marker set'
+	logger -t ztos-waydroid-boot 'Android ready; boot marker set by ztos-waydroid-recover'
 else
 	logger -t ztos-waydroid-boot 'Android not ready within 45 seconds; continuing boot'
 fi
